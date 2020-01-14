@@ -18,6 +18,24 @@ class App extends Component {
     return (
       <div>
         <h2>Lottery Contract</h2>
+        <p>
+          Message: {this.state.message}
+        </p>
+
+        <hr />
+
+        <form onSubmit={this.onSubmit}>
+          <h4>Create New Record</h4>
+          <div>
+            <label>Hash</label>
+            <input value={this.state.hash} onChange={event => this.setState({ value: event.target.hash })} />
+          </div>
+          <div>
+            <label>Description</label>
+            <input value={this.state.description} onChange={event => this.setState({ value: event.target.description })} />
+          </div>
+          <button>Enter</button>
+        </form>
       </div>
     );
   }

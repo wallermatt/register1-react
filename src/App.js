@@ -14,16 +14,20 @@ class App extends Component {
     this.setState({ message: 'Register1 is ready...' });
   }
 
+   
   onSubmit = async event => {
     event.preventDefault();
 
     const accounts = await web3.eth.getAccounts();
+    console.log('acc', accounts[0]);
+    const { hash, description } = this.state;
 
     this.setState({ message: 'Waiting on transaction success...' });
-
-    await register1.methods.createRecord({ this.state.hash, this.state.description} ).send({
+   
+    await register1.methods.createRecord(hash, description).send({
       from: accounts[0]
     });
+    
 
     this.setState({ message: 'You have been entered!' });
   };
@@ -42,11 +46,11 @@ class App extends Component {
           <h4>Create New Record</h4>
           <div>
             <label>Hash</label>
-            <input value={this.state.hash} onChange={event => this.setState({ value: event.target.hash })} />
+            <input value={this.state.hash} onChange={event => this.setState({ hash: event.target.value })} />
           </div>
           <div>
             <label>Description</label>
-            <input value={this.state.description} onChange={event => this.setState({ value: event.target.description })} />
+            <input value={this.state.description} onChange={event => this.setState({ description: event.target.value })} />
           </div>
           <button>Enter</button>
         </form>

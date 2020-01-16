@@ -1,7 +1,16 @@
 import web3 from './web3';
+import Register1 from './build/Register1.json'
 
 const address = '0x71ed3E7fCa6eAF3f1f3cce1d57FEe066d38c8682';
 
+const instance = new web3.eth.Contract(
+	JSON.parse(Register1.interface),
+	address
+);
+
+export default instance;
+
+/*
 const abi = [
 	{
 		"constant": true,
@@ -82,3 +91,4 @@ const abi = [
 ]
 
 export default new web3.eth.Contract(abi, address);
+*/

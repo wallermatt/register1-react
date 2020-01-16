@@ -14,6 +14,20 @@ class App extends Component {
     this.setState({ message: 'Register1 is ready...' });
   }
 
+  onSubmit = async event => {
+    event.preventDefault();
+
+    const accounts = await web3.eth.getAccounts();
+
+    this.setState({ message: 'Waiting on transaction success...' });
+
+    await register1.methods.createRecord({ this.state.hash, this.state.description} ).send({
+      from: accounts[0]
+    });
+
+    this.setState({ message: 'You have been entered!' });
+  };
+
   render() {
     return (
       <div>

@@ -7,7 +7,12 @@ class App extends Component {
   state = {
     hash: '',
     description: '',
-    message: ''
+    message: '',
+    lookup: '',
+    l_registered: '',
+    l_owner: '',
+    l_timestamp: '',
+    l_description: ''
   };
 
   async componentDidMount() {
@@ -32,6 +37,19 @@ class App extends Component {
     this.setState({ message: 'You have been entered!' });
   };
 
+  onClick = async event => {
+    event.preventDefault();
+
+
+    console.log('lookup', this.state.lookup);
+
+    let results = await register1.methods.getRecord(this.state.lookup).call();
+
+    console.log('lookup', results[0]);
+
+    this.setState({ l_registered: results[0], l_owner: results[1], l_timestamp: results[2], l_description: results[3] });
+  };
+
   render() {
     return (
       <div>
@@ -54,6 +72,23 @@ class App extends Component {
           </div>
           <button>Enter</button>
         </form>
+        <h4>Look Up Record</h4>
+        <div>
+          <input value={this.state.lookup} onChange={event => this.setState({ lookup: event.target.value })} />
+        </div>
+        <button onClick={this.onClick}>Look Up</button>
+        <p>
+          <label>Registered: </label>{this.state.l_registered.toString()}
+        </p>
+        <p>
+          <label>Owner: </label>{this.state.l_owner}
+        </p>
+        <p>
+          <label>Timestamp: </label>{this.state.l_timestamp}
+        </p>
+        <p>
+          <label>Description: </label>{this.state.l_description}
+        </p>
       </div>
     );
   }

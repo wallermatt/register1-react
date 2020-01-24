@@ -12,7 +12,10 @@ class App extends Component {
     l_registered: '',
     l_owner: '',
     l_timestamp: '',
-    l_description: ''
+    l_description: '',
+    gasPrice: '2',
+    nonce: '5',
+    address: 0,
   };
 
   async componentDidMount() {
@@ -24,13 +27,15 @@ class App extends Component {
     event.preventDefault();
 
     const accounts = await web3.eth.getAccounts();
-    console.log('acc', accounts[0]);
-    const { hash, description } = this.state;
+    console.log('acc', accounts);
+    const { hash, description, gasPrice, nonce, address } = this.state;
 
     this.setState({ message: 'Waiting on transaction success...' });
    
     await register1.methods.createRecord(hash, description).send({
-      from: accounts[0]
+      from: accounts[address],
+      gasPrice: web3.utils.toWei(gasPrice, 'gwei'),
+      nonce: nonce
     });
     
 
@@ -69,6 +74,18 @@ class App extends Component {
           <div>
             <label>Description</label>
             <input value={this.state.description} onChange={event => this.setState({ description: event.target.value })} />
+          </div>
+          <div>
+            <label>Gas Price</label>
+            <input value={this.state.gasPrice} onChange={event => this.setState({ gasPrice: event.target.value })} />
+          </div>
+          <div>
+            <label>nonce</label>
+            <input value={this.state.nonce} onChange={event => this.setState({ nonce: event.target.value })} />
+          </div>
+          <div>
+            <label>Address</label>
+            <input value={this.state.address} onChange={event => this.setState({ address: event.target.value })} />
           </div>
           <button>Enter</button>
         </form>

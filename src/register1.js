@@ -1,7 +1,11 @@
 import web3 from './web3';
 import Register1 from './build/Register1.json'
 
-const address = '0x71ed3E7fCa6eAF3f1f3cce1d57FEe066d38c8682';
+// Rinkeby
+//const address = '0x71ed3E7fCa6eAF3f1f3cce1d57FEe066d38c8682';
+
+// Mainnet
+const address = '0x4799928F91764748A11C634D9CcD1f22064709f9';
 
 const instance = new web3.eth.Contract(
 	JSON.parse(Register1.interface),

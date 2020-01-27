@@ -39,7 +39,7 @@ class App extends Component {
     });
     
 
-    this.setState({ message: 'You have been entered!' });
+    this.setState({ message: 'Your record has been created!' });
   };
 
   onClick = async event => {
